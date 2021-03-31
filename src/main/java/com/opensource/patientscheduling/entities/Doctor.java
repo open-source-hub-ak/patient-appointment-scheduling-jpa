@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Doctor {
@@ -20,6 +21,25 @@ public class Doctor {
 
 	@ManyToMany(mappedBy = "doctor")
 	List<Patient> patients;
+
+	@OneToMany()
+	private List<Appointment> appointments;
+
+	public List<Patient> getPatients() {
+		return patients;
+	}
+
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
+	}
+
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
 
 	public Long getId() {
 		return id;

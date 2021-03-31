@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Patient {
@@ -26,7 +27,26 @@ public class Patient {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "patients_doctors", joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"))
-	List<Doctor> doctors;
+	private List<Doctor> doctors;
+
+	@OneToMany()
+	private List<Appointment> appointments;
+
+	public List<Doctor> getDoctors() {
+		return doctors;
+	}
+
+	public void setDoctors(List<Doctor> doctors) {
+		this.doctors = doctors;
+	}
+
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(List<Appointment> appointments) {
+		this.appointments = appointments;
+	}
 
 	public Long getId() {
 		return id;

@@ -22,7 +22,7 @@ public class Doctor {
 	@ManyToMany(mappedBy = "doctors")
 	List<Patient> patients;
 
-	@OneToMany()
+	@OneToMany
 	private List<Appointment> appointments;
 
 	public List<Patient> getPatients() {

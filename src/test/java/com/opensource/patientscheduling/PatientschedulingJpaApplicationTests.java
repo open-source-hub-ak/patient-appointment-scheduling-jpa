@@ -1,10 +1,16 @@
 package com.opensource.patientscheduling;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.opensource.patientscheduling.entities.Doctor;
+import com.opensource.patientscheduling.entities.Insurance;
+import com.opensource.patientscheduling.entities.Patient;
 import com.opensource.patientscheduling.repos.DoctorRepository;
 import com.opensource.patientscheduling.repos.PatientRepository;
 
@@ -24,6 +30,28 @@ class PatientschedulingJpaApplicationTests {
 		doctor.setLastName("Thippyreddy");
 		doctor.setSpeciality("All");
 		doctorRepository.save(doctor);
+	}
+
+	@Test
+	void testCreatePatient() {
+		Patient patient = new Patient();
+
+		patient.setFirstName("Akash");
+		patient.setLastName("K");
+		patient.setPhone("999999999");
+
+		Insurance insurance = new Insurance();
+		insurance.setProviderName("Blue Cross Blue Shield");
+		insurance.setCopay(20d);
+
+		patient.setInsurance(insurance);
+
+		Doctor doctor = doctorRepository.findById(1L).get();
+		List<Doctor> doctors = new ArrayList<>();
+		doctors.add(doctor);
+		patient.setDoctors(doctors);
+
+		patientRepository.save(patient);
 	}
 
 }

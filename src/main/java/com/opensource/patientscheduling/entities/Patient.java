@@ -29,7 +29,7 @@ public class Patient {
 	@JoinTable(name = "patients_doctors", joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"))
 	private List<Doctor> doctors;
 
-	@OneToMany()
+	@OneToMany
 	private List<Appointment> appointments;
 
 	public List<Doctor> getDoctors() {

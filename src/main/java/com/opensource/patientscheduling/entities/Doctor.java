@@ -19,7 +19,7 @@ public class Doctor {
 	private String lastName;
 	private String speciality;
 
-	@ManyToMany(mappedBy = "doctor")
+	@ManyToMany(mappedBy = "doctors")
 	List<Patient> patients;
 
 	@OneToMany()

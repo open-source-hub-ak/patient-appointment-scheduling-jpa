@@ -1,10 +1,16 @@
 package com.opensource.patientscheduling.entities;
 
+import java.util.List;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Patient {
@@ -17,6 +23,10 @@ public class Patient {
 	private String phone;
 	@Embedded
 	private Insurance insurance;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "patients_doctors", joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "id"))
+	List<Doctor> doctors;
 
 	public Long getId() {
 		return id;

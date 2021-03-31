@@ -1,9 +1,12 @@
 package com.opensource.patientscheduling.entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Doctor {
@@ -14,6 +17,9 @@ public class Doctor {
 	private String firstName;
 	private String lastName;
 	private String speciality;
+
+	@ManyToMany(mappedBy = "doctor")
+	List<Patient> patients;
 
 	public Long getId() {
 		return id;

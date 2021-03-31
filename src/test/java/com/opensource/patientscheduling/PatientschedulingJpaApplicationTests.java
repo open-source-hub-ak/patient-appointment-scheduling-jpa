@@ -1,6 +1,8 @@
 package com.opensource.patientscheduling;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.assertj.core.util.Arrays;
@@ -8,9 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.opensource.patientscheduling.entities.Appointment;
 import com.opensource.patientscheduling.entities.Doctor;
 import com.opensource.patientscheduling.entities.Insurance;
 import com.opensource.patientscheduling.entities.Patient;
+import com.opensource.patientscheduling.repos.AppointmentRepository;
 import com.opensource.patientscheduling.repos.DoctorRepository;
 import com.opensource.patientscheduling.repos.PatientRepository;
 
@@ -22,6 +26,9 @@ class PatientschedulingJpaApplicationTests {
 
 	@Autowired
 	private PatientRepository patientRepository;
+
+	@Autowired
+	private AppointmentRepository appointmentRepository;
 
 	@Test
 	void testCreateDoctor() {
@@ -52,6 +59,20 @@ class PatientschedulingJpaApplicationTests {
 		patient.setDoctors(doctors);
 
 		patientRepository.save(patient);
+	}
+
+	@Test
+	void testCreateAppointment() {
+
+		Appointment appointment = new Appointment();
+
+		appointment.setAppointmentTime(new Timestamp(new Date().getTime()));
+		appointment.setReason("I have problem");
+		appointment.setStarted(true);
+		appointment.setPatient(patientRepository.findById(1L).get());
+		appointment.setDoctor(doctorRepository.findById(1L).get());
+
+		appointmentRepository.save(appointment);
 	}
 
 }
